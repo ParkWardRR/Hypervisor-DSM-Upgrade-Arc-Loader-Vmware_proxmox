@@ -1,5 +1,6 @@
 # ESXI-DSM-Upgrade-Arc-Loader
 Upgrading from DSM 6 to DSM 7 using Arc Loader on an ESXi setup. It contains precise details, from setting up Arc on ESXi to transitioning smoothly from DSM 6 to DSM 7. Please check out the README document for detailed steps and prerequisites
+The first 10 steps show you how to run Synology DSM on ESXI.
 
 ![Screenshot](https://i.postimg.cc/Hn9cbNY8/image.png)
 
@@ -64,3 +65,6 @@ vmkfstools -i /vmfs/volumes/datastore-name/arc-dyn.vmdk /vmfs/volumes/datastore-
 
 Feel free to raise an issue in this repository if you need any clarifications.
 
+---
+
+Zpenology
