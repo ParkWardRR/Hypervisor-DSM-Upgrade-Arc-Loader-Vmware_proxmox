@@ -1,5 +1,5 @@
 # ESXI-DSM-Upgrade-Arc-Loader
-Guidance on upgrading DSM 6 to DSM 7 using Arc Loader on an ESXi setup. It contains precise details, from setting up Arc on ESXi to transitioning smoothly from DSM 6 to DSM 7. Please check out the README document for detailed steps and prerequisites
+Upgrading from DSM 6 to DSM 7 using Arc Loader on an ESXi setup. It contains precise details, from setting up Arc on ESXi to transitioning smoothly from DSM 6 to DSM 7. Please check out the README document for detailed steps and prerequisites
 
 ![Screenshot](https://i.postimg.cc/Hn9cbNY8/image.png)
 
@@ -52,7 +52,7 @@ vmkfstools -i /vmfs/volumes/datastore-name/arc-dyn.vmdk /vmfs/volumes/datastore-
 
 12. **Transfer PCIe passthrough**: To maintain device connections and inputs during the upgrade, shift PCIe passthrough of the host bus adapter (HBA) from the DSM 6 VM to the new DSM 7 VM.
 
-13. **Boot the DSM 7 VM to Arc**: Start the DSM 7 VM on Arc.
+13. **Boot the DSM 7 VM to Arc**: Start the DSM 7 VM and boot to Arc loader.
 
 14. **Adjust Arc's drive mapper**: Change Arc's drive mapper to the "active" setting, correctly mapping drive paths in your setup.
 
