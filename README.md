@@ -1,6 +1,7 @@
 # ESXI-DSM-Upgrade-Arc-Loader
-Guidance on upgrading DSM 6 to DSM 7 using Arc Loader on an ESXi setup. Contains precise details right from setting up Arc on ESXi to transitioning smoothly from DSM 6 to DSM 7. Please check out the README document for detailed steps and prerequisites
+Guidance on upgrading DSM 6 to DSM 7 using Arc Loader on an ESXi setup. It contains precise details, from setting up Arc on ESXi to transitioning smoothly from DSM 6 to DSM 7. Please check out the README document for detailed steps and prerequisites
 
+[image.png](https://postimg.cc/SYjxhDzm)
 
 # Upgrading DSM 6 to DSM 7 using Arc Loader on ESXi (Rough Notes)
 
@@ -8,7 +9,7 @@ This GitHub repository presents a rough guide based on personal notes for upgrad
 
 ## Prerequisite
 
-- Ensure you've downloaded the `arc-23.10.1b.vmdk-dyn.zip` file from the appropriate source.
+- Ensure you've downloaded the `arc-*.vmdk-dyn.zip` file from the [appropriate source](https://github.com/AuxXxilium/arc/releases)
 
 ## Instruction Steps
 Follow the sequence for Arc setup on ESXi and upgrading from DSM 6 to DSM 7:
