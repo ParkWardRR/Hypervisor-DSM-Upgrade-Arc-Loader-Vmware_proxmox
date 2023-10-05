@@ -47,7 +47,7 @@ vmkfstools -i /vmfs/volumes/datastore-name/arc-dyn.vmdk /vmfs/volumes/datastore-
 
 9. **Set Arc's drive mapper**: Adjust Arc's drive mapper to "auto" or "active", optimizing Arc Loader's function during the DSM 7 installation.
 
-10. **Install DSM 7**: With the earlier steps completed, start installing DSM 7 using Arc.
+10. **Install DSM 7**: Start installing DSM 7 using Arc with the earlier steps completed.
 
 11. **Shutdown DSM 7 VM**: After the successful installation, power off the DSM 7 virtual machine.
 
@@ -63,8 +63,8 @@ vmkfstools -i /vmfs/volumes/datastore-name/arc-dyn.vmdk /vmfs/volumes/datastore-
 
 ---
 
-Feel free to raise an issue in this repository if you need any clarifications.
+Feel free to raise an issue in this repository if you need clarification.
 
 ---
 
-Zpenology
+Xpenology
