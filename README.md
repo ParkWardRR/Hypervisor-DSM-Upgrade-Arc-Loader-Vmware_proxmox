@@ -40,6 +40,8 @@ unzip /vmfs/volumes/datastore-name/arc-*.vmdk-dyn.zip
 
 4. **Clone and reformat `.vmdk` file**: Use `vmkfstools` on ESXi host to clone and reformat the `.vmdk` file, streamlining the file structure and storage.
 ```bash
+vmkfstools -i arc-dyn.vmdk arc-dyn-clone.vmdk -d thin
+# or 
 vmkfstools -i /vmfs/volumes/datastore-name/arc-dyn.vmdk /vmfs/volumes/datastore-name/arc-dyn-clone.vmdk -d thin
 ```
 
