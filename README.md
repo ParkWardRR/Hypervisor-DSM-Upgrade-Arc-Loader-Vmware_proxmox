@@ -25,16 +25,17 @@ This GitHub repository presents a rough guide based on personal notes for upgrad
 ## Instruction Steps
 Follow the sequence for Arc setup on ESXi and upgrading from DSM 6 to DSM 7:
 
-1. **Transfer the .vmdk file to your ESXi host**: Use scp (secure copy protocol) to transfer the downloaded file to your ESXi host securely. Replace `<ESXi host IP>` and `datastore-name` with your ESXi host IP and datastore name, respectively.
+1. **Transfer the .vmdk file to your ESXi host**: Use scp (secure copy protocol) to transfer the downloaded file to your ESXi host securely. Replace `<ESXi host IP>` and `datastore-name` with your ESXi host IP and datastore name, respectively. You may need to adjust the file name according to your downloaded version.
  ```bash
-scp ~/Downloads/arc-23.10.1b.vmdk-dyn.zip root@<ESXi host IP>:/vmfs/volumes/datastore-name/
+scp ~/Downloads/arc-*.vmdk-dyn.zip root@<ESXi host IP>:/vmfs/volumes/datastore-name/
+
 ```
 
 2. **Shutdown the DSM 6 VM**: Ensure you've safely shut down the DSM 6 VM. This prevents conflict or overlap between the DSM 6 and DSM 7 instances.
 
 3. **Unzip the transferred file**: After transferring the file, log into your ESXi host and unzip the file in the appropriate directory.
 ```bash
-unzip /vmfs/volumes/datastore-name/arc-23.10.1b.vmdk-dyn.zip
+unzip /vmfs/volumes/datastore-name/arc-*.vmdk-dyn.zip
 ```
 
 4. **Clone and reformat `.vmdk` file**: Use `vmkfstools` on ESXi host to clone and reformat the `.vmdk` file, streamlining the file structure and storage.
