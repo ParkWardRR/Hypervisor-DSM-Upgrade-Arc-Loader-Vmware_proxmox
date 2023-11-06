@@ -9,7 +9,7 @@ This repository contains walkthroughs for migrating from DSM 6 to DSM 7 using Ar
 
 - **For VMware ESXi users**: Find the guide in the [`vmware_esxi_arc_DSM.md`](./vmware_esxi_arc_DSM.md) file.
 
-- **For Proxmox VE users**: We offer an untested guide that's available in the [`Proxmox_arc_DSM.md`](./Proxmox_arc_DSM.md) file.
+- **For Proxmox VE users**: This repo offers an untested guide that's available in the [`Proxmox_arc_DSM.md`](./Proxmox_arc_DSM.md) file.
 
 Please select the guide that matches your host platform. 
 
