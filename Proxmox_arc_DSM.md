@@ -20,25 +20,32 @@ Additional resources: [Arc Loader Wiki](https://github.com/AuxXxilium/AuxXxilium
 
 # SECTION 1: Configuring and Launching the Proxmox VM running DSM 7
 
-Here are the steps to set up your Proxmox host:
+Follow the step-by-step guide to set up your Proxmox host:
 
-1. **Transfer the .vmdk file**: Use `scp` (Secure Copy Protocol) to transfer the `.vmdk` file (downloaded as per prerequisites) to your Proxmox host. Replace `<Proxmox host IP>` and `destination-directory` with your actual host IP and desired directory path.
+1. **Transfer the .vmdk file to your Proxmox host**: Use scp (Secure Copy Protocol) to move the `.vmdk` file to your Proxmox host. Use the command:
  ```bash
 scp ~/Downloads/arc-*.vmdk-dyn.zip root@<Proxmox host IP>:/destination-directory/
 ```
 
-2. **Convert the vmdk to a qcow2 image**: Proxmox uses qcow2 VM images, so the vmdk file must be converted. The conversion can be done using `qemu-img`, like so:
+2. **Unzip the transferred file**: After moving the `.zip` file to your Proxmox host, unzip it in the appropriate directory.
+```bash
+unzip /destination-directory/arc-*.vmdk-dyn.zip
+```
+
+3. **Convert the vmdk to a qcow2 image**: Proxmox uses qcow2 VM images, convert the vmdk file using the command:
  ```bash
 qemu-img convert -f vmdk -O qcow2 /path_to/arc-dyn.vmdk /destination_path/arc-dyn.qcow2
 ```
 
-3. **Create and configure a new VM**: Use Proxmox's web GUI to create a new VM. Add another drive during the VM creation process, which will later serve as the DSM's OS installation location. When asked for the OS, choose "Do not use any media".
+4. **Create a new VM and add another drive**: Use Proxmox's web GUI to create a new VM. Add an additional drive which will be used as the DSM OS installation location.
 
-4. **Attach the converted drive**: Remove the existing SCSI0 disk from the VM's 'Disks' tab. Then, append the `.qcow2` image (created in the second step) as a new SATA drive. 
-  
-5. **Modify the boot order**: Within the 'Options' section, adjust 'Boot Order' to disable everything (via Edit) except the SATA0. Confirm with 'OK'. 
+5. **Select "Do not use any media"**: When asked for the OS during VM creation, choose "Do not use any media".
 
-6. **Initiate the VM**: Launch the newly created VM.
+6. **Attach the converted drive**:  From the 'Disks' tab in VM settings, erase the existing SCSI0 disk, then link the `.qcow2` image as a new SATA drive.
+
+7. **Modify the boot order**: Within the 'Options' section, adjust the 'Boot Order' to only include SATA0. 
+
+8. **Start VM**: Start the newly created VM.
 
 # SECTION 2: Configuring Arc Loader and Connecting Storage Drives
 
