@@ -2,7 +2,7 @@
 
 Welcome to the DSM Guide Arc Loader guide for VMware and Proxmox Hypervisors. 
 
-![Screenshot](https://i.postimg.cc/Hn9cbNY8/image.png)
+![Screenshot](https://i.postimg.cc/tg6dJxKT/image.png)
 
 
 This repository contains walkthroughs for migrating from DSM 6 to DSM 7 using Arc Loader, specialized for both VMware ESXi and Proxmox VE:
