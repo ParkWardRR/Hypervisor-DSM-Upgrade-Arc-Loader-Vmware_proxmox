@@ -1,14 +1,14 @@
 # Proxmox DSM Guide
 
-The guide walks you through installing DSM 7 on the Proxmox hypervisor and migrating from DSM 6 to DSM 7 on Proxmox. This guide, though untested, is adapted from the ESXI-DSM-Upgrade-Arc-Loader method. 
+This guide assists you in installing DSM 7 on the Proxmox hypervisor and transitioning from DSM 6 to DSM 7 on Proxmox. While this guide is untested, it is adapted from the ESXI-DSM-Upgrade-Arc-Loader method. 
 
-Also take a look at this guide: https://github.com/AuxXxilium/AuxXxilium/wiki
+You can also refer to this guide: https://github.com/AuxXxilium/AuxXxilium/wiki
 
 [![image.png](https://i.postimg.cc/B6y2Q23Y/image.png)](https://postimg.cc/ftcV8tJm)
 
 ## Prerequisites
 
-- Do not forget to download the `arc-*.vmdk-dyn.zip` file from the [appropriate source](https://github.com/AuxXxilium/arc/releases) before starting.
+- Ensure you download the `arc-*.vmdk-dyn.zip` file from the [appropriate source](https://github.com/AuxXxilium/arc/releases) before you begin.
 
 ## Equipment
 
@@ -16,61 +16,59 @@ Also take a look at this guide: https://github.com/AuxXxilium/AuxXxilium/wiki
 
 # SECTION 1: Configuring and Launching the Proxmox VM running DSM 7
 
-The following steps guide you through the configuration process:
+Follow these steps to configure the setup:
 
-1. **Import the .vmdk file**: Use the Proxmox web GUI to import the `.vmdk` file to your Proxmox host.
+1. **Import the .vmdk file**: Use the Proxmox web GUI to move the `.vmdk` file to your Proxmox host.
 
-2. **Convert the VMDK to a QCOW2 image**: Proxmox uses a different VM image format called QCOW2. With `qemu-img` to convert the VMDK to a QCOW2 image using this command:
+2. **Convert the VMDK to a QCOW2 image**: Proxmox uses a different VM image format (QCOW2). Use `qemu-img` to perform this conversion:
 
 ```bash
 qemu-img convert -f vmdk -O qcow2 /path_to/arc-dyn.vmdk /destination_path/arc-dyn.qcow2
 ```
 
-3. **Create a New VM**: Open Proxmox and navigate to the create VM button.
+3. **Create a New VM and add another drive**: Launch Proxmox and click on the create VM button. During the VM creation, make sure to add an additional drive which will be used for the DSM OS installation.
 
-4. **Select "Do not use any media"**: While creating the VM, go into the 'OS' tab and select "Do not use any media".
+4. **Select "Do not use any media"**: Click the 'OS' tab during VM creation and choose "Do not use any media".
 
-5. **Delete the SCSI0 Disk**: Navigate to the 'Disks' tab and delete the existing SCSI0 disk.
+5. **Remove the SCSI0 Disk**: Click the 'Disks' tab and erase the existing SCSI0 disk.
 
-6. **Attach the Converted Drive**: Within the 'Disks' tab, attach the  `.qcow2` image from the conversion step as a new SATA drive.
+6. **Link the Converted Drive**: In the 'Disks' tab, link the  `.qcow2` image from the earlier conversion step as a new SATA drive.
 
-7. **Change Boot Order**: Go to the 'Options' menu, select 'Boot Order' and Edit. Uncheck all options except SATA0 and confirm with 'OK'. 
+7. **Modify the Boot Order**: Press the 'Options' button, click 'Boot Order' and Edit. Disable all options except SATA0 and validate with 'OK'. 
 
-8. **Power on the VM**: Boot the newly created VM.
+8. **Initiate the VM**: Launch the newly created VM.
 
-# SECTION 2: Configuring Arc Loader
+# SECTION 2: Configuring Arc Loader and Connecting Storage Drives
 
-Ensure Arc Loader works optimally with the following steps:
+Proceed with the following to optimize Arc Loader:
 
-1. **Set Up Arc's Drive Mapper**: Configure the drive mapper settings of Arc to either "auto" or "active". This adjustment is crucial to ensuring the Arc Loader works efficiently during the DSM 7 installation process.
+1. **Set Up Arc's Drive Mapper**: Set drive mapper settings of Arc to either "auto" or "active". This adjustment ensures that the Arc Loader operates optimally during the DSM 7 installation.
 
-2. **Choose a Model Number**: Refer to the Arc guide and pick a model that supports Arc. For the aesthetic of a rack-mounted DAS, I have chosen the RS4021xs+. Be sure to select a model that aligns with the number of threads and need for NVMe and other accelerators you require. You can refer to this list for the information: [Arc: Model List for Arc](https://github.com/AuxXxilium/AuxXxilium/wiki/Arc:-Model-List-for-Arc)
+2. **Add your NAS storage drives and/or HBA/DAS**: Now you can connect your NAS storage drives or any other Hardware Based RAID/Host Bus Adapter (HBA/DAS) systems. After connecting these, run the Arc mapper again for optimal setup configuration.
+
+3. **Choose a Model Number**: Refer to the Arc guide and select a model compatible with Arc. For a rack-mounted DAS aesthetic, I picked the RS4021xs+. Ensure your selection aligns with your requirement for NVMe and other accelerators based on the number of threads. Find more information in this list: [Arc: Model List for Arc](https://github.com/AuxXxilium/AuxXxilium/wiki/Arc:-Model-List-for-Arc)
    
-3. **Opt for Autogenerated MAC and Serial Number**: For this guide, I decided to use the auto-generate feature for my MAC and Serial Number.
+4. **Use Autogenerated MAC and Serial Number**: In this guide, we opted for the auto-generate function for the MAC and Serial Number.
 
-4. **Begin DSM 7 Installation**: Move onto installing DSM 7 using Arc.
-
-
+5. **Start DSM 7 Installation**: Proceed with installing DSM 7 using Arc.
 
 # SECTION 3: Migration from DSM 6 to DSM 7
 
-Follow this sequence to migrate from DSM 6 to DSM 7:
+Transition from DSM 6 to DSM 7 using these steps:
 
-1. **Shutdown the DSM 6 VM**: Halt the DSM 6 VM to avoid conflicts with the DSM 7 instance.
+1. **Shutdown the DSM 6 VM**: Halt the DSM 6 VM to prevent conflicts with the DSM 7 instance.
 
-2. **Transfer PCIe passthrough**: Move the host bus adapter's PCIe passthrough from the DSM 6 to your freshly installed DSM 7 VM.
+2. **Move PCIe passthrough**: Transfer the host bus adapter's PCIe passthrough from DSM 6 to your newly installed DSM 7 VM.
 
-3. **Boot the DSM 7 VM to Arc**: Now, reboot the DSM 7 VM and boot it using the Arc loader.
+3. **Reboot the DSM 7 VM using Arc**: Restart the DSM 7 VM and boot it with the Arc loader.
 
-4. **Adjust Arc's drive mapper**: Swap Arc's drive mapper setting to "active" ensuring the correct mapping of your drive paths.
+4. **Alter Arc's drive mapper**: Change Arc's drive mapper setting to "active" to ensure your drive paths are mapped correctly.
 
-5. **Boot DSM 7**: After configuring your setup, launch DSM 7 and verify its functionality.
+5. **Launch DSM 7**: Once you have configured your setup, boot DSM 7 and verify it operates as intended.
 
-6. **Restore your storage pools**: Finally, safety restore your storage structures and saved datasets for the newly installed system to access all the previous data as per your setup requirements.
+6. **Retrieve your storage pools**: Finally, safely restore your saved datasets and storage structures so the new system can access all the previous data as per your setup requirements.
 
----
 
-In case of any issues, feel free to raise a ticket on this repository. We value your feedback and will update the guide as required.
 
 ---
 Xpenology
