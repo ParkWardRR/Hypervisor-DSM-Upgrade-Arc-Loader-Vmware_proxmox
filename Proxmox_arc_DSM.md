@@ -4,6 +4,9 @@ The guide walks you through installing DSM 7 on the Proxmox hypervisor and migra
 
 Also take a look at this guide: https://github.com/AuxXxilium/AuxXxilium/wiki
 
+
+[![image.png](https://i.postimg.cc/XYTW9rvm/image.png)](https://postimg.cc/5XqDVNLS)
+
 ## Prerequisites
 
 - Do not forget to download the `arc-*.vmdk-dyn.zip` file from the [appropriate source](https://github.com/AuxXxilium/arc/releases) before starting.
