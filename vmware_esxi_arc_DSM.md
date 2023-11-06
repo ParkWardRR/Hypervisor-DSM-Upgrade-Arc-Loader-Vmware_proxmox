@@ -1,78 +1,80 @@
 # ESXI-DSM-Upgrade-Arc-Loader
-Upgrading from DSM 6 to DSM 7 using Arc Loader on an ESXi setup. It contains details, from setting up Arc on ESXi to transitioning smoothly from DSM 6 to DSM 7. 
 
----
+This guide will walk you through the process of upgrading from DSM 6 to DSM 7 using Arc Loader on a VMware ESXi setup. Adapted from the Proxmox setup, this guide remains focused on the specifics of the ESXi host environment.
 
-The first 10 steps show you how to run Synology DSM on ESXI.
-
+Additional resources: [Arc Loader Wiki](https://github.com/AuxXxilium/AuxXxilium/wiki)
 ---
 
 ![Screenshot](https://i.postimg.cc/Hn9cbNY8/image.png)
 
-# Upgrading DSM 6 to DSM 7 using Arc Loader on ESXi (Rough Notes)
+---
 
-This GitHub repository presents a rough guide based on personal notes for upgrading DSM 6 to DSM 7 using Arc Loader, specifically for the DS3622xs+ model.
+## Prerequisites
 
-## Prerequisite
+- Make sure to download the `arc-*.vmdk-dyn.zip` file from the [appropriate source](https://github.com/AuxXxilium/arc/releases).
 
-- Ensure you've downloaded the `arc-*.vmdk-dyn.zip` file from the [appropriate source](https://github.com/AuxXxilium/arc/releases)
+## Equipment
 
-## Parts
-- Esxi host
-- Lenovo SA120
-- HBA - Dell perc h330+ SAS3008
+- ESXi host
 
-## Instruction Steps
-Follow the sequence for Arc setup on ESXi and upgrading from DSM 6 to DSM 7:
+## SECTION 1: Configuring and Launching the VMware ESXi VM running DSM 7
 
-1. **Transfer the .vmdk file to your ESXi host**: Use scp (secure copy protocol) to transfer the downloaded file to your ESXi host securely. Replace `<ESXi host IP>` and `datastore-name` with your ESXi host IP and datastore name, respectively. You may need to adjust the file name according to your downloaded version.
+Do the prep work:
+
+1. **Transfer the .vmdk file to your ESXi host**: Using scp (secure copy protocol), transfer the downloaded .vmdk file to your ESXi host in a secure manner. Replace `<ESXi host IP>` and `datastore-name` with your specific values.
  ```bash
 scp ~/Downloads/arc-*.vmdk-dyn.zip root@<ESXi host IP>:/vmfs/volumes/datastore-name/
-
 ```
 
-2. **Shutdown the DSM 6 VM**: Ensure you've safely shut down the DSM 6 VM. This prevents conflict or overlap between the DSM 6 and DSM 7 instances.
+2. **Shutdown the DSM 6 VM** (If needed) : Make sure to safely shutdown the DSM 6 VM to avoid any conflict with the DSM 7 instance. 
 
-3. **Unzip the transferred file**: After transferring the file, log into your ESXi host and unzip the file in the appropriate directory.
+3. **Unzip the transferred file**: After moving the `.zip` file to your ESXi host, unzip it in the appropriate directory with:
 ```bash
 unzip /vmfs/volumes/datastore-name/arc-*.vmdk-dyn.zip
 ```
 
-4. **Clone and reformat `.vmdk` file**: Use `vmkfstools` on ESXi host to clone and reformat the `.vmdk` file, streamlining the file structure and storage.
+4. **Clone and reformat .vmdk file**: Clone and reformat your .vmdk file using `vmkfstools` for a more streamlined file structure.
 ```bash
 vmkfstools -i arc-dyn.vmdk arc-dyn-clone.vmdk -d thin
 # or 
 vmkfstools -i /vmfs/volumes/datastore-name/arc-dyn.vmdk /vmfs/volumes/datastore-name/arc-dyn-clone.vmdk -d thin
 ```
 
-5. **Remove the existing disk from your VM settings**: Before attaching the cloned `.vmdk` file, detach the existing disk from your virtual machine. Make sure not to delete this disk from the file system.
+5. **Remove the existing disk from your VM settings**: Before attaching the cloned .vmdk file, detach the existing disk from your VM. Make sure not to delete this disk from the file system.
 
-6. **Add the `arc-dyn-clone.vmdk` as an existing hard disk**: Connect the cloned `.vmdk` to the VM as an existing hard disk. Make sure to attach it to `sata0:0`.
+6. **Attach `arc-dyn-clone.vmdk` as an existing hard disk**: Connect the cloned .vmdk to the VM as an existing hard disk.
 
-7. **Initiate DSM 7 VM**: Use the MAC addresses from the DSM 6 VM to configure the network interface card (NIC) on your DSM 7 VM.
+7. **Apply the DSM 6 MAC addresses**: Apply the MAC addresses from the DSM 6 VM to DSM 7 VM Network Interface Card (NIC) configurations.
 
-8. **Power on the VM**: Now you can turn on the virtual machine.
+8. **Start VM**: Boot up your new DSM 7 VM.
 
-9. **Set Arc's drive mapper**: Adjust Arc's drive mapper to "auto" or "active", optimizing Arc Loader's function during the DSM 7 installation.
+## SECTION 2: Configuring Arc Loader and Connecting Storage Drives
 
-10. **Install DSM 7**: Start installing DSM 7 using Arc with the earlier steps completed.
+The next steps are:
 
-11. **Shutdown DSM 7 VM**: After the successful installation, power off the DSM 7 virtual machine.
+1. **Set up Arc's Drive Mapper**: Update the drive mapper settings for Arc loader to either "auto" or "active" to optimize its operations during the DSM 7 installation.
 
-12. **Transfer PCIe passthrough**: To maintain device connections and inputs during the upgrade, shift PCIe passthrough of the host bus adapter (HBA) from the DSM 6 VM to the new DSM 7 VM.
+2. **Install DSM 7 using Arc**: Start the DSM 7 installation process using Arc, ensuring your previous configurations have been successfully set up before proceeding.
 
-13. **Boot the DSM 7 VM to Arc**: Start the DSM 7 VM and boot to Arc loader.
+3. **Attach storage/data drives**: Hook up your storage drives. I do this by attaching the HBA via PCIe passthrough, which connects the DAS containing all my disks. Keep in mind your storage drive attachment process might differ significantly.
 
-14. **Adjust Arc's drive mapper**: Change Arc's drive mapper to the "active" setting, correctly mapping drive paths in your setup.
+## SECTION 3: Migration from DSM 6 to DSM 7
 
-15. **Boot DSM 7**: With all configurations set, turn on DSM 7 and ensure it's working as expected.
+After your DSM 7 has been successfully installed and all storage devices have been connected:
 
-16. **Restore your storage pools**: Recall the saved data sets and storage structures to ensure your upgraded system has access to prior data per your setup requirements.
+1. **Shutdown DSM 7 VM**: Securely power off your DSM 7 VM to avoid conflicts during PCIe passthrough transfer.
+
+2. **Move PCIe passthrough**: Transfer the host bus adapter's (HBA) PCIe passthrough from the DSM 6 VM to the new DSM 7 VM. In this way, you can maintain your device connections and inputs during the upgrade process.
+
+3. **Reboot DSM 7 VM using Arc**: Power on the new DSM 7 VM, ensuring to boot it with the Arc loader.
+
+4. **Adjust Arc's drive mapper**: Modify Arc's drive mapper to "active", enabling the correct mapping of your drive paths in your setup.
+
+5. **Launch DSM 7**: Boot DSM 7, confirming everything is working as intended.
+
+6. **Restore Storage Pools**: Finally, retrieve your saved data sets and storage structures, granting access to previous data according to your setup requirements.
 
 ---
 
-Feel free to raise an issue in this repository if you need clarification.
+Happy Xpenology! :D
 
----
-
-Xpenology
