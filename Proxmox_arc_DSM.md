@@ -72,7 +72,6 @@ Transition from DSM 6 to DSM 7 using these steps:
 
 ---
 
-Encounter problems? Feel free to raise a ticket on this repository. We appreciate your feedback and will revise the guide as needed.
-
+:D
 ---
 Xpenology
