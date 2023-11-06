@@ -11,8 +11,7 @@ Let us know if you encounter any type of issue, we're here to help.
 ## Equipment
 
 - Proxmox host
-- Lenovo SA120
-- HBA - Dell perc h330+ SAS3008
+
 
 ## Instruction Steps
 
