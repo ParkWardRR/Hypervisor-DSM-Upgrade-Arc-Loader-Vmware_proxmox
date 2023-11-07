@@ -22,29 +22,29 @@ Additional resources: [Arc Loader Wiki](https://github.com/AuxXxilium/AuxXxilium
 
 Follow the step-by-step guide to set up your Proxmox host:
 
-1. **Transfer the .vmdk file to your Proxmox host**: Use scp (Secure Copy Protocol) to move the `.vmdk` file to your Proxmox host. Use the command:
- ```bash
-scp ~/Downloads/arc-*.vmdk-dyn.zip root@<Proxmox host IP>:/destination-directory/
-```
-
+1. **Transfer the .zip file to your Proxmox host**: Use scp (Secure Copy Protocol) to move the `arc-*.vmdk-dyn.zip` file to your Proxmox host. Use the command:
+   ```bash
+   scp ~/Downloads/arc-*.vmdk-dyn.zip root@<Proxmox host IP>:/destination-directory/
+   ```
+   
 2. **Unzip the transferred file**: After moving the `.zip` file to your Proxmox host, unzip it in the appropriate directory.
-```bash
-unzip /destination-directory/arc-*.vmdk-dyn.zip
-```
-
-3. **Convert the vmdk to a qcow2 image**: Proxmox uses qcow2 VM images, convert the vmdk file using the command:
- ```bash
-qemu-img convert -f vmdk -O qcow2 /path_to/arc-dyn.vmdk /destination_path/arc-dyn.qcow2
-```
-
+   ```bash
+   unzip /destination-directory/arc-*.vmdk-dyn.zip
+   ```
+   
+3. **Convert the vmdk to a qcow2 image**: Proxmox uses qcow2 VM images, convert the extracted vmdk file using the command:
+   ```bash
+   qemu-img convert -f vmdk -O qcow2 /path_to/arc-dyn.vmdk /destination_path/arc-dyn.qcow2
+   ```
+   
 4. **Create a new VM and add another drive**: Use Proxmox's web GUI to create a new VM. Add an additional drive which will be used as the DSM OS installation location.
-
+   
 5. **Select "Do not use any media"**: When asked for the OS during VM creation, choose "Do not use any media".
-
+   
 6. **Attach the converted drive**:  From the 'Disks' tab in VM settings, erase the existing SCSI0 disk, then link the `.qcow2` image as a new SATA drive.
-
+   
 7. **Modify the boot order**: Within the 'Options' section, adjust the 'Boot Order' to only include SATA0. 
-
+   
 8. **Start VM**: Start the newly created VM.
 
 # SECTION 2: Configuring Arc Loader and Connecting Storage Drives
