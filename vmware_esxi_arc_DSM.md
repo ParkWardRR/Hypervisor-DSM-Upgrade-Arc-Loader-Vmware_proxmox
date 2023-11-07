@@ -28,7 +28,7 @@ Additional resources: [Arc Loader Wiki](https://github.com/AuxXxilium/AuxXxilium
 
 After the VM setup, proceed as follows:
 
-1. **Transfer the .vmdk file to your ESXi host**: Transfer the downloaded .vmdk file to your ESXi host using scp (secure copy protocol). Replace `<ESXi host IP>` and `<path to store the file>` with your specific details.
+1. **Transfer the .vmdk file to your ESXi host**: Transfer the downloaded .vmdk file to your ESXi host using scp (secure copy protocol). Replace `<ESXi host IP>` and `<datastore-name>` with your specific details.
  ```bash
 scp ~/Downloads/arc-*.vmdk-dyn.zip root@<ESXi host IP>:/vmfs/volumes/datastore-name/
 ```
