@@ -20,13 +20,11 @@ Additional resources: [Arc Loader Wiki](https://github.com/AuxXxilium/AuxXxilium
 
 1. **Create a new VM in Proxmox**: Use the Proxmox web UI to create a new VM. Provide all the necessary settings, and select 'Linux 5.x - 2.6 Kernel' (64-bit) for the operating system.
 
-2. **Add another drive**: For the newly created VM, add an extra drive that will be used as the DSM OS installation destination.
+2. **Choose not to use any media**: When prompted for an OS during the VM creation, select "Do not use any media".
 
-3. **Choose not to use any media**: When prompted for an OS during the VM creation, select "Do not use any media".
+3. **Adjust VM settings**: Proceed to the 'Hardware' tab of your new VM, and remove the existing hard disk and SCSI controller. 
 
-4. **Adjust VM settings**: Proceed to the 'Hardware' tab of your new VM, and remove the existing hard disk and SCSI controller. 
-
-5. **Change boot options**: Navigate to the 'Options' tab and modify the boot order to use BIOS instead of UEFI. 
+4. **Change boot options**: Navigate to the 'Options' tab and modify the boot order to use BIOS instead of UEFI. 
 
 ## SECTION 2: Configuring and Launching the Proxmox VM running DSM 7
 
@@ -43,7 +41,7 @@ unzip /vmfs/volumes/<datastore-name>/arc-*.vmdk-dyn.zip
 qemu-img convert -f vmdk -O qcow2 arc-dyn.vmdk arc-dyn.qcow2
 ```
    
-3. **Attach the converted .qcow2 file as a hard disk**: In Proxmox's web GUI, attach the converted .qcow2 file as an existing hard disk to the new VM. It should appear as a SATA drive.
+3. **Attach the converted .qcow2 file as a hard disk**: In Proxmox's web GUI, attach the converted .qcow2 file as an existing hard disk to the new VM. It should appear as a SATA drive. At SATA(0:0) if possible. 
 
 4. **Start VM**: Start your new DSM 7 VM. 
 
@@ -53,7 +51,7 @@ After starting your VM:
 
 1. **Model Selection**: Refer to [this section](./arc_loader_config_dsm.md#model-selection) in the Arc Loader configuration guide to choose a model that aligns with your hardware. 
 
-2. **MAC Address and Serial Configuration**: Arrange for the MAC Address and Serial number for the new VM to autopopulate.
+2. **MAC Address and Serial Configuration**: Arrange for the MAC Address and Serial number for the new VM to auto-populate.
 
 3. **Initiate the DSM 7 installation using Arc**: With Arc Loader, start your DSM 7 installation.
 
