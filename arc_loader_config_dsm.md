@@ -41,7 +41,7 @@ In this step, we use Arc Loader to map the drives.
 
 2. Alternatively, you can choose "Use SataPortMap (controller max Ports)" to map all the controller ports, whether active or not.
 
-![Drive Mapping](https://postimg.cc/N5gvPsyr)
+![Drive Mapping]([https://postimg.cc/N5gvPsyr](https://i.postimg.cc/L6P45h2v/Screenshot-2023-11-07-at-12-27-22-PM.png))
 
 - The "Use SataRemap (remove blank drives)" option can be beneficial when dealing with empty or dummy Ports from your Controller. 
   * Please note that when using this option, all drives must be mapped to the SATA controller because SAS/SCSI Ports will not work.
