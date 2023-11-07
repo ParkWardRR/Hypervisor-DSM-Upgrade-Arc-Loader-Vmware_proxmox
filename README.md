@@ -4,7 +4,7 @@ Welcome to the DSM Upgrade Guide for VMware ESXi and Proxmox hypervisors utilizi
 
 ![Screenshot](https://i.postimg.cc/tg6dJxKT/image.png)
 
-In this repository, we offer guides to assist you with migrating your existing DSM 6 setup to DSM 7 using Arc Loader. These guides facilitate migration in two specific virtualization environments:
+This repository offers guides to assist you with migrating your existing DSM 6 setup to DSM 7 using Arc Loader. These guides facilitate migration in two specific virtualization environments:
 
 - **VMware ESXi Guide:** For users operating within a VMware environment, refer to [`vmware_esxi_arc_DSM.md`](./vmware_esxi_arc_DSM.md).
 
