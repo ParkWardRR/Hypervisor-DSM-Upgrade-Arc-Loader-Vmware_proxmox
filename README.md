@@ -42,9 +42,6 @@ The update process is divided into three significant stages:
 
 4. **Confirm DSM 7 Setup and Restore Storage Pools**: After adjusting the drive settings, start DSM 7, verify its functionality, and restore your storage pools to retrieve saved datasets and storage structures per your setup preferences.
 
----
-
-Should you encounter any concerns or require clarification, don't hesitate to raise an issue in this repository. 
    
 ---
 
