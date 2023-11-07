@@ -1,6 +1,6 @@
 # ESXI-DSM-Upgrade-Arc-Loader
 
-This guide will walk you through the process of upgrading from DSM 6 to DSM 7 using Arc Loader on a VMware ESXi setup. Adapted from the Proxmox setup, this guide remains focused on the specifics of the ESXi host environment.
+This guide will walk you through the process of upgrading from DSM 6 to DSM 7 using Arc Loader on a VMware ESXi setup. 
 
 Additional resources: [Arc Loader Wiki](https://github.com/AuxXxilium/AuxXxilium/wiki)
 ---
